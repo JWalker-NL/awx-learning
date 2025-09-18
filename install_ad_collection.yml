@@ -1,10 +1,10 @@
 ---
-
--  name: Touch file
+-  name: Install_Collections
    hosts: all
    gather_facts: false
    tasks:
-    collections:
-      - name: microsoft.ad
-        source: https://galaxy.ansible.com/
+    - name: Install
+      collections:
+        - name: microsoft.ad
+          source: https://galaxy.ansible.com/
     
