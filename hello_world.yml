@@ -6,5 +6,5 @@
    tasks: 
     - name: Create foo file
       ansible.windows.win_file:
-      path: "C:\\Temp\\foo.conf"
-      state: touch
+        path: "C:\\Temp\\foo.conf"
+        state: touch
