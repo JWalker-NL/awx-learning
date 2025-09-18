@@ -13,7 +13,7 @@
       microsoft.ad.domain_controller:
         dns_domain_name: ad-test.local
         domain_admin_user: "{{ ansible_user }}@ad-test.local"
-        domain_admin_password: {{ ansible_ssh_pass }}
-        safe_mode_password: {{ ansible_ssh_pass }}
+        domain_admin_password: "{{ ansible_ssh_pass }}"
+        safe_mode_password: "{{ ansible_ssh_pass }}"
         state: domain_controller
         reboot: true
