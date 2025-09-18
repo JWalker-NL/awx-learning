@@ -2,8 +2,6 @@
 -  name: Touch file
    hosts: all
    gather_facts: false
-   collections:
-    - microsoft.ad
 
    tasks: 
     - name: Create foo file

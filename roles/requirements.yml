@@ -1,0 +1,5 @@
+   collections:
+    - name: microsoft.ad
+      source: git+https://github.com/ansible-collections/microsoft.ad.git
+      version: main
+    
