@@ -1,4 +1,5 @@
-   collections:
-    - name: microsoft.ad
-      source: https://galaxy.ansible.com/
+---
+-   collections:
+      - name: microsoft.ad
+        source: https://galaxy.ansible.com/
     
