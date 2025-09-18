@@ -1,0 +1,51 @@
+---
+-  name: Do Config
+   hosts: all
+   gather_facts: false
+
+   tasks: 
+    - name: Ensure OU is present & protected
+      microsoft.ad.ou:
+        name: Ansible
+        state: present
+    - name: Ensure OU is present & protected
+      microsoft.ad.ou:
+        name: Ansible-1
+        path: OU=Ansible,DC=ad-test,DC=local
+        state: present
+    - name: Ensure OU is present & protected
+      microsoft.ad.ou:
+        name: Ansible-2
+        path: OU=Ansible-1,OU=Ansible,DC=ad-test,DC=local
+        state: present
+    - name: Ensure user bob is present in OU ou=test,dc=domain,dc=local
+      microsoft.ad.user:
+        identity: bob
+        password: B0bP4ssw0rd
+        state: present
+        path: OU=Ansible,DC=ad-test,DC=local
+        groups:
+          set:
+            - Domain Admins
+            - Domain Users
+    - name: Ensure user bob is present in OU ou=test,dc=domain,dc=local
+      microsoft.ad.user:
+        identity: bob1
+        password: B0bP4ssw0rd
+        state: present
+        path: OU=Ansible-1,OU=Ansible,DC=ad-test,DC=local
+        groups:
+          set:
+            - Domain Admins
+            - Domain Users
+    - name: Ensure user bob is present in OU ou=test,dc=domain,dc=local
+      microsoft.ad.user:
+        identity: bob2
+        password: B0bP4ssw0rd
+        state: present
+        path: OU=Ansible-2,OU=Ansible-1,OU=Ansible,DC=ad-test,DC=local
+        groups:
+          set:
+            - Domain Admins
+            - Domain Users
+
