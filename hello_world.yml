@@ -1,7 +1,6 @@
 ---
 -  hosts: all
    tasks: 
-    - name: touch file
       ansible.windows.win_file:
       path: C:\Temp\foo.conf
       state: touch
