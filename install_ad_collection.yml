@@ -1,5 +1,10 @@
 ---
-collections:
-  - name: microsoft.ad
-    source: https://galaxy.ansible.com/
+
+-  name: Touch file
+   hosts: all
+   gather_facts: false
+   tasks:
+    collections:
+      - name: microsoft.ad
+        source: https://galaxy.ansible.com/
     
