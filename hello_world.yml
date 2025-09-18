@@ -1,19 +1,19 @@
 ---
--  name: Touch file
+-  name: DC Promot
    hosts: all
    gather_facts: false
 
    tasks: 
-    - name: Create foo file
-      ansible.windows.win_file:
-        path: "C:\\Temp\\foo.conf"
-        state: touch
-
-    - name: Ensure a server is a domain controller
-      microsoft.ad.domain_controller:
+    - name: Create new Windows domain in a new forest with specific parameters and reboot in post task
+      microsoft.ad.domain:
+        create_dns_delegation: false
         dns_domain_name: ad-test.local
-        domain_admin_user: "{{ ansible_user }}@ad-test.local"
-        domain_admin_password: "{{ ansible_ssh_pass }}"
+        domain_netbios_name: AD-TEST
+        domain_mode: Win2025
+        forest_mode: Win2025
         safe_mode_password: "{{ ansible_ssh_pass }}"
-        state: domain_controller
-        reboot: true
+      register: domain_install
+
+    - name: Reboot if needed
+      ansible.windows.win_reboot:
+      when: domain_install.reboot_required
