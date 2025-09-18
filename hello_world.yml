@@ -12,8 +12,8 @@
     - name: Ensure a server is a domain controller
       microsoft.ad.domain_controller:
         dns_domain_name: ad-test.local
-        domain_admin_user: silver@ad-test.local
-        domain_admin_password: password123!
-        safe_mode_password: password123!
+        domain_admin_user: "{{ ansible_user }}@ad-test.local"
+        domain_admin_password: {{ ansible_ssh_pass }}
+        safe_mode_password: {{ ansible_ssh_pass }}
         state: domain_controller
         reboot: true
