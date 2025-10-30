@@ -3,10 +3,10 @@
    hosts: all
    gather_facts: false
    vars:
-      ansible_connection=winrm 
-      ansible_winrm_transport=basic
-      ansible_winrm_port=5985
-      ansible_winrm_server_cert_validation=ignore
+      ansible_connection: winrm 
+      ansible_winrm_transport: basic
+      ansible_winrm_port: 5985
+      ansible_winrm_server_cert_validation: ignore
 
    tasks: 
     - name: Create new Windows domain in a new forest with specific parameters and reboot in post task
