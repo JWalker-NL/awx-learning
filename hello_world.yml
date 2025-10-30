@@ -2,7 +2,7 @@
 -  name: DC Promot
    hosts: all
    gather_facts: false
-   set_fact:
+   vars:
       ansible_connection=winrm 
       ansible_winrm_transport=basic
       ansible_winrm_port=5985
