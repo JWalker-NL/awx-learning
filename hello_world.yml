@@ -16,7 +16,7 @@
         domain_netbios_name: AD-TEST
         domain_mode: Win2025
         forest_mode: Win2025
-        safe_mode_password: "{{ ansible_ssh_pass }}"
+        safe_mode_password: password123!
       register: domain_install
       when: "'DC01' in inventory_hostname"
 
