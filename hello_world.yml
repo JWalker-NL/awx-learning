@@ -21,7 +21,7 @@
         domain_mode: Win2025
         forest_mode: Win2025
         safe_mode_password: password123!
-      when: '"DC01" in ansible_hostname'
+      when: '"DC01" in nodename'
       register: domain_install
 
 
@@ -37,6 +37,6 @@
         safe_mode_password: password123!
         state: domain_controller
         reboot: true
-      when: '"DC02" in ansible_hostname'
+      when: '"DC02" in nodename'
 
 
