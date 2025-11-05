@@ -8,7 +8,11 @@
       ansible_winrm_port: 5985
       ansible_winrm_server_cert_validation: ignore
 
-   tasks: 
+   tasks:
+    - name: Print all facts
+      debug:
+        var: ansible_facts
+   
     - name: Create new Windows domain in a new forest with specific parameters and reboot in post task
       microsoft.ad.domain:
         create_dns_delegation: false
