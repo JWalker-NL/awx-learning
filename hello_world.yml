@@ -19,7 +19,11 @@
         safe_mode_password: "{{ ansible_ssh_pass }}"
       register: domain_install
       when: "'DC01' in inventory_hostname"
-      
+
+    - name: Reboot if needed
+      ansible.windows.win_reboot:
+      when: domain_install.reboot_required
+         
     - name: Join existing Windows Domain if DC02
       microsoft.ad.domain_controller:
         dns_domain_name: ad-test.local
@@ -30,6 +34,4 @@
         reboot: true
       when: "'DC02' in inventory_hostname"
 
-    - name: Reboot if needed
-      ansible.windows.win_reboot:
-      when: domain_install.reboot_required
+
