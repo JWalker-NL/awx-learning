@@ -1,15 +1,12 @@
 ---
 -  name: DC Promot
    hosts: all
-   gather_facts: false
+   gather_facts: true
    vars:
       ansible_connection: winrm 
       ansible_winrm_transport: ntlm
       ansible_winrm_port: 5985
       ansible_winrm_server_cert_validation: ignore
-      inventory_hostname:
-        172.16.0.4: DC01
-        172.16.0.6: DC02
 
    tasks: 
     - name: Create new Windows domain in a new forest with specific parameters and reboot in post task
@@ -21,7 +18,7 @@
         forest_mode: Win2025
         safe_mode_password: password123!
       register: domain_install
-      when: "DC01 in inventory_hostname"
+      when: "DC01 in {{ ansible_facts['nodename'] }}"
 
     - name: Reboot if needed
       ansible.windows.win_reboot:
@@ -35,6 +32,6 @@
         safe_mode_password: password123!
         state: domain_controller
         reboot: true
-      when: "DC02 in inventory_hostname"
+      when: "DC02 in {{ ansible_facts['nodename'] }}"
 
 
