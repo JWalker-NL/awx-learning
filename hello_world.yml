@@ -19,15 +19,16 @@
         safe_mode_password: "{{ ansible_ssh_pass }}"
       register: domain_install
       when: "'DC01' in inventory_hostname"
-   - name: Join existing Windows Domain if DC02
-     microsoft.ad.domain_controller:
-       dns_domain_name: ad-test.local
-       domain_admin_user: silver@ad-test.local
-       domain_admin_password: password123!
-       safe_mode_password: password123!
-       state: domain_controller
-       reboot: true
-     when: "'DC02' in inventory_hostname"
+      
+    - name: Join existing Windows Domain if DC02
+      microsoft.ad.domain_controller:
+        dns_domain_name: ad-test.local
+        domain_admin_user: silver@ad-test.local
+        domain_admin_password: password123!
+        safe_mode_password: password123!
+        state: domain_controller
+        reboot: true
+      when: "'DC02' in inventory_hostname"
 
     - name: Reboot if needed
       ansible.windows.win_reboot:
