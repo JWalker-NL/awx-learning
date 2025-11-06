@@ -47,7 +47,7 @@
         attributes: ReadOnly=False, System=False, Hidden=False
 
     - name: Set content
-      community.windows.win_lineinfile:
+      ansible.builtin.lineinfile:
         path: "C:\\ProgramData\\ssh\\administrators_authorized_keys"
         line: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE6SJcka7Pidg6bMwcTLVqej+PlbnTe7iv07L+dDbEMu silveradmin@AAP-Test-Drive'
         create: true
@@ -55,7 +55,7 @@
       register: key_add_result
 
     - name: Disable password authentication
-      community.windows.win_lineinfile:
+      ansible.builtin.lineinfile:
         path: "C:\\ProgramData\\ssh\\sshd_config"
         regexp: "^(#?)(PasswordAuthentication\\s+)(yes|no)"
         line: "PasswordAuthentication no"
