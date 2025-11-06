@@ -39,15 +39,16 @@
           Force        = $true
           }
           New-ItemProperty @shellParams
+
     - name: Add SSH key
       ansible.windows.win_file:
-        path: "C:\ProgramData\ssh\administrators_authorized_keys"
+        path: "C:\\ProgramData\\ssh\\administrators_authorized_keys"
         state: touch
         attributes: ReadOnly=False, System=False, Hidden=False
 
     - name: Set content
       community.windows.win_lineinfile:
-        path: "C:\ProgramData\ssh\administrators_authorized_keys"
+        path: "C:\\ProgramData\\ssh\\administrators_authorized_keys"
         line: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE6SJcka7Pidg6bMwcTLVqej+PlbnTe7iv07L+dDbEMu silveradmin@AAP-Test-Drive'
         create: true
         insertafter: EOF
@@ -55,7 +56,7 @@
 
     - name: Disable password authentication
       community.windows.win_lineinfile:
-        path: "{{ sshd_config_location }}"
+        path: "C:\\ProgramData\\ssh\\sshd_config"
         regexp: "^(#?)(PasswordAuthentication\\s+)(yes|no)"
         line: "PasswordAuthentication no"
       notify: Restart SSHD
