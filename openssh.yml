@@ -13,6 +13,11 @@
         state: restarted
 
    tasks:
+    - name: get ssh config
+      ansible.windows.win_powershell:
+        script: |
+          get-content -path "C:\ProgramData\ssh\sshd_config"
+          
     - name: Config Open SSH
       ansible.windows.win_powershell:
         script: |
