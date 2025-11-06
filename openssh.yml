@@ -34,3 +34,4 @@
           Force        = $true
           }
           New-ItemProperty @shellParams
+   - name: Add SSH key
