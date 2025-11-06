@@ -47,16 +47,14 @@
         attributes: ReadOnly=False, System=False, Hidden=False
 
     - name: Set content
-      ansible.builtin.lineinfile:
-        path: "C:\\ProgramData\\ssh\\administrators_authorized_keys"
-        line: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE6SJcka7Pidg6bMwcTLVqej+PlbnTe7iv07L+dDbEMu silveradmin@AAP-Test-Drive'
-        create: true
-        insertafter: EOF
-      register: key_add_result
+      ansible.windows.win_powershell:
+        script: |
+         set-content -path "C:\ProgramData\ssh\administrators_authorized_keys" -value 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE6SJcka7Pidg6bMwcTLVqej+PlbnTe7iv07L+dDbEMu silveradmin@AAP-Test-Drive'
+
+         
 
     - name: Disable password authentication
-      ansible.builtin.lineinfile:
-        path: "C:\\ProgramData\\ssh\\sshd_config"
-        regexp: "^(#?)(PasswordAuthentication\\s+)(yes|no)"
-        line: "PasswordAuthentication no"
+      ansible.windows.win_powershell:
+        script: |
+          (get-content -path "C:\ProgramData\ssh\sshd_config").Replace('PasswordAuthentication yes','PasswordAuthentication no') | Set-content -path "C:\ProgramData\ssh\sshd_config"
       notify: Restart SSHD
