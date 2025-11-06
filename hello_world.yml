@@ -27,7 +27,7 @@
 
     - name: Reboot if needed
       ansible.windows.win_reboot:
-      when: domain_install.reboot_required
+      when: domain_install.reboot_required and "dc01" in ansible_facts["nodename"]
          
     - name: Join existing Windows Domain if DC02
       microsoft.ad.domain_controller:
