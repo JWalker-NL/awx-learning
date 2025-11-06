@@ -15,3 +15,7 @@
        ansible.windows.win_powershell:
         script: |
           disable-psremoting -force
+          Remove-WSManInstance -ResourceUri winrm/config/Listener -force
+          Stop-Service WinRM -PassThru
+          Set-Service WinRM -StartupType Disabled -PassThru
+          
