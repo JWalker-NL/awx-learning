@@ -9,9 +9,10 @@
       ansible_winrm_server_cert_validation: ignore
 
    tasks:
-    - name: Print all facts
-      debug:
-        var: ansible_facts
+    - name: Set a single address on the adapter named Ethernet
+      ansible.windows.win_dns_client:
+      adapter_names: '*'
+      dns_servers: 172.16.0.4
    
     - name: Create new Windows domain in a new forest with specific parameters and reboot in post task
       microsoft.ad.domain:
