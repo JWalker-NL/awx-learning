@@ -6,6 +6,11 @@
       ansible_winrm_transport: ntlm
       ansible_winrm_port: 5985
       ansible_winrm_server_cert_validation: ignore
+   handlers:
+    - name: Restart SSHD
+      ansible.windows.win_service:
+        name: sshd
+        state: restarted
 
    tasks:
     - name: Config Open SSH
@@ -34,4 +39,23 @@
           Force        = $true
           }
           New-ItemProperty @shellParams
-   - name: Add SSH key
+    - name: Add SSH key
+      ansible.windows.win_file:
+        path: "C:\ProgramData\ssh\administrators_authorized_keys"
+        state: touch
+        attributes: ReadOnly=False, System=False, Hidden=False
+
+    - name: Set content
+      community.windows.win_lineinfile:
+        path: "C:\ProgramData\ssh\administrators_authorized_keys"
+        line: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE6SJcka7Pidg6bMwcTLVqej+PlbnTe7iv07L+dDbEMu silveradmin@AAP-Test-Drive'
+        create: true
+        insertafter: EOF
+      register: key_add_result
+
+    - name: Disable password authentication
+      community.windows.win_lineinfile:
+        path: "{{ sshd_config_location }}"
+        regexp: "^(#?)(PasswordAuthentication\\s+)(yes|no)"
+        line: "PasswordAuthentication no"
+      notify: Restart SSHD
