@@ -2,6 +2,11 @@
 -  name: Do Config
    hosts: all
    gather_facts: false
+   vars:
+      ansible_connection: winrm 
+      ansible_winrm_transport: ntlm
+      ansible_winrm_port: 5985
+      ansible_winrm_server_cert_validation: ignore
 
    tasks: 
     - name: Ensure OU is present & protected
