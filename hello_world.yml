@@ -38,6 +38,6 @@
       
     - name: Reboot if needed
       ansible.windows.win_reboot:
-      when: domain_install.reboot_required or domain_install is skipped
+      when: domain_install.reboot_required or domain_install.skipped
 
 
