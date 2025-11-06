@@ -61,5 +61,5 @@
     - name: Disable password authentication
       ansible.windows.win_powershell:
         script: |
-          (get-content -path "C:\ProgramData\ssh\sshd_config").Replace('PasswordAuthentication yes','PasswordAuthentication no') | Set-content -path "C:\ProgramData\ssh\sshd_config"
+          (get-content -path "C:\ProgramData\ssh\sshd_config").Replace('#PasswordAuthentication no','PasswordAuthentication no') | Set-content -path "C:\ProgramData\ssh\sshd_config"
       notify: Restart SSHD
